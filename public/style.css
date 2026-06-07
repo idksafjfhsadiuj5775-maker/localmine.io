@@ -8,10 +8,13 @@ canvas { display: block; }
   display: flex; align-items: center; justify-content: center;
   z-index: 10; cursor: pointer;
 }
-#instructions { text-align: center; color: #fff; }
+#instructions { position: relative; text-align: center; color: #fff; }
 #instructions h1 { font-size: 48px; margin-bottom: 16px; color: #4CAF50; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 #instructions p { font-size: 24px; margin-bottom: 8px; }
 #instructions .small { font-size: 14px; color: #aaa; }
+#instructions .credit { position: absolute; bottom: 30px; left: 0; right: 0; font-size: 13px; color: #888; }
+#instructions .credit a { color: #aaa; text-decoration: none; }
+#instructions .credit a:hover { color: #fff; text-decoration: underline; }
 
 #hud { pointer-events: none; }
 
