@@ -1,0 +1,8 @@
+node_modules/
+dist/
+data/world/*.bin
+data/players/*.json
+data/users.json
+ssl/
+*.log
+.DS_Store

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft Lite</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+<div id="blocker">
+  <div id="instructions">
+    <h1>Minecraft Lite</h1>
+    <p>Click to play</p>
+    <p class="small">WASD - Move | Space - Jump | LMB - Destroy | RMB - Place | E - Inventory | 1-9 - Hotbar</p>
+  </div>
+</div>
+
+<div id="hud">
+  <div id="health-bar"></div>
+  <div id="crosshair">+</div>
+  <div id="hotbar"></div>
+  <div id="info"></div>
+</div>
+
+<div id="inventory-screen" style="display:none">
+  <div id="inv-bg"></div>
+  <div id="inv-container">
+    <h2>Inventory</h2>
+    <div id="crafting-grid">
+      <div class="craft-label">Crafting</div>
+      <div class="craft-row"><div class="craft-slot" data-idx="0"></div><div class="craft-slot" data-idx="1"></div></div>
+      <div class="craft-row"><div class="craft-slot" data-idx="2"></div><div class="craft-slot" data-idx="3"></div></div>
+      <div id="craft-arrow">→</div>
+      <div id="craft-result" class="craft-slot"></div>
+    </div>
+    <div id="inv-grid">
+      <div class="inv-label">Storage</div>
+      <div id="inv-slots"></div>
+    </div>
+    <div id="inv-hotbar-label">Hotbar</div>
+    <div id="inv-hotbar"></div>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

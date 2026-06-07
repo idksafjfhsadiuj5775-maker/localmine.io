@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft Lite</title>
+<link rel="stylesheet" href="title.css">
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<div id="dirt-overlay"></div>
+
+<div id="title-screen">
+  <div id="logo">
+    <div class="logo-line"><span class="letter" style="color:#4CAF50">M</span><span class="letter" style="color:#66BB6A">I</span><span class="letter" style="color:#81C784">N</span><span class="letter" style="color:#A5D6A7">E</span><span class="letter" style="color:#4CAF50">C</span><span class="letter" style="color:#66BB6A">R</span><span class="letter" style="color:#81C784">A</span><span class="letter" style="color:#A5D6A7">F</span><span class="letter" style="color:#4CAF50">T</span></div>
+    <div class="logo-sub"><span class="letter" style="color:#8D6E63">L</span><span class="letter" style="color:#A1887F">I</span><span class="letter" style="color:#BCAAA4">T</span><span class="letter" style="color:#D7CCC8">E</span></div>
+  </div>
+
+  <div id="menu">
+    <button class="menu-btn" id="btn-play" onclick="startGame()">
+      <span class="btn-icon">▶</span> Play
+    </button>
+    <button class="menu-btn" onclick="showLogin()">
+      <span class="btn-icon">🔑</span> Sign In / Register
+    </button>
+    <button class="menu-btn" onclick="alert('Multiplayer coming soon!')">
+      <span class="btn-icon">👥</span> Multiplayer
+    </button>
+    <button class="menu-btn" onclick="alert('Options coming soon!')">
+      <span class="btn-icon">⚙</span> Options
+    </button>
+    <button class="menu-btn" onclick="window.close()">
+      <span class="btn-icon">✕</span> Quit
+    </button>
+  </div>
+
+  <div id="user-info" style="display:none">
+    <span id="user-name"></span>
+    <button onclick="logout()" id="logout-btn">Sign Out</button>
+  </div>
+
+  <div id="footer">
+    <p class="copyright">Copyright &copy; 2026 FreeCode AI. Not affiliated with Mojang AB.</p>
+    <p class="version">v1.0.0</p>
+  </div>
+</div>
+
+<!-- Login Modal -->
+<div id="login-modal" style="display:none">
+  <div id="login-bg" onclick="hideLogin()"></div>
+  <div id="login-box">
+    <button id="login-close" onclick="hideLogin()">✕</button>
+    <h2>Sign In</h2>
+
+    <div id="login-tabs">
+      <button class="tab active" onclick="switchTab('login')">Sign In</button>
+      <button class="tab" onclick="switchTab('register')">Register</button>
+    </div>
+
+    <div id="login-form">
+      <input type="text" id="auth-username" placeholder="Username" autocomplete="off">
+      <input type="password" id="auth-password" placeholder="Password">
+      <div id="auth-error" class="auth-error"></div>
+      <button id="auth-submit" class="auth-btn" onclick="submitAuth()">Sign In</button>
+    </div>
+
+    <div class="oauth-section">
+      <p class="oauth-label">Or sign in with</p>
+      <div class="oauth-buttons">
+        <button class="oauth-btn google" onclick="oauthSignIn('google')">
+          <span class="oauth-icon">G</span> Google
+        </button>
+        <button class="oauth-btn apple" onclick="oauthSignIn('apple')">
+          <span class="oauth-icon"></span> Apple
+        </button>
+        <button class="oauth-btn microsoft" onclick="oauthSignIn('microsoft')">
+          <span class="oauth-icon">◆</span> Microsoft
+        </button>
+        <button class="oauth-btn steam" onclick="oauthSignIn('steam')">
+          <span class="oauth-icon">⬡</span> Steam
+        </button>
+      </div>
+      <p class="oauth-coming-soon">More sign-in options coming soon</p>
+    </div>
+  </div>
+</div>
+
+<div id="loading-screen" style="display:none">
+  <div class="loading-box">
+    <div class="loading-bar"><div class="loading-fill"></div></div>
+    <p class="loading-text" id="loading-text">Loading...</p>
+  </div>
+</div>
+
+<script src="title.js"></script>
+</body>
+</html>

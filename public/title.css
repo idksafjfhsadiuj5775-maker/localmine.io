@@ -1,0 +1,408 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+@font-face {
+  font-family: 'Minecraft';
+  src: local('Courier New'), local('monospace');
+}
+
+body {
+  overflow: hidden;
+  background: #1a1a2e;
+  font-family: 'Courier New', monospace;
+  image-rendering: pixelated;
+  cursor: default;
+}
+
+/* ---- Animated background ---- */
+#bg-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+/* ---- Dirt overlay (bottom third) ---- */
+#dirt-overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 35%;
+  z-index: 1;
+  background: repeating-linear-gradient(
+    0deg,
+    #5D4037 0px, #5D4037 2px,
+    #4E342E 2px, #4E342E 4px,
+    #6D4C41 4px, #6D4C41 6px,
+    #5D4037 6px, #5D4037 8px,
+    #4E342E 8px, #4E342E 10px,
+    #6D4C41 10px, #6D4C41 12px,
+    #5D4037 12px, #5D4037 14px
+  );
+  opacity: 0.85;
+}
+
+#dirt-overlay::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: repeating-linear-gradient(
+    90deg,
+    #4CAF50 0px, #4CAF50 4px,
+    #388E3C 4px, #388E3C 8px,
+    #43A047 8px, #43A047 12px
+  );
+}
+
+/* ---- Title screen ---- */
+#title-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Logo ---- */
+#logo {
+  text-align: center;
+  margin-bottom: 60px;
+  text-shadow:
+    3px 3px 0 #1a1a1a,
+    -1px -1px 0 #1a1a1a,
+    1px -1px 0 #1a1a1a,
+    -1px 1px 0 #1a1a1a,
+    0 4px 0 #0d0d0d;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.logo-line {
+  font-size: 72px;
+  font-weight: bold;
+  letter-spacing: 8px;
+  line-height: 1;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+}
+
+.logo-sub {
+  font-size: 36px;
+  font-weight: bold;
+  letter-spacing: 16px;
+  margin-top: 4px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+}
+
+.letter {
+  display: inline-block;
+  text-shadow:
+    2px 2px 0 rgba(0,0,0,0.8),
+    0 0 20px rgba(76,175,80,0.3);
+  animation: glow 3s ease-in-out infinite;
+}
+
+.letter:nth-child(odd) { animation-delay: 0.15s; }
+.letter:nth-child(3n) { animation-delay: 0.3s; }
+
+@keyframes glow {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
+}
+
+/* ---- Menu buttons ---- */
+#menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 300px;
+}
+
+.menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  font-size: 20px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(180deg, #7B7B7B 0%, #4B4B4B 50%, #3B3B3B 100%);
+  border: 2px solid #3B3B3B;
+  border-top-color: #8B8B8B;
+  border-left-color: #8B8B8B;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.05s;
+  image-rendering: pixelated;
+  box-shadow: 0 2px 0 #1a1a1a;
+}
+
+.menu-btn:hover {
+  background: linear-gradient(180deg, #8B8B8B 0%, #5B5B5B 50%, #4B4B4B 100%);
+  border-top-color: #9B9B9B;
+  border-left-color: #9B9B9B;
+}
+
+.menu-btn:active {
+  transform: translateY(2px);
+  box-shadow: none;
+  background: linear-gradient(180deg, #4B4B4B 0%, #3B3B3B 100%);
+}
+
+.btn-icon {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+}
+
+/* ---- User info ---- */
+#user-info {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 14px;
+}
+#user-name {
+  background: rgba(0,0,0,0.5);
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+#logout-btn {
+  background: rgba(0,0,0,0.5);
+  color: #ff6666;
+  border: 1px solid rgba(255,100,100,0.3);
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 12px;
+}
+#logout-btn:hover { background: rgba(255,0,0,0.2); }
+
+/* ---- Login modal ---- */
+#login-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#login-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  cursor: pointer;
+}
+#login-box {
+  position: relative;
+  background: #2a2a2a;
+  border: 2px solid #555;
+  border-radius: 8px;
+  padding: 30px;
+  width: 380px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.6);
+  z-index: 1;
+}
+#login-box h2 {
+  color: #fff;
+  font-size: 22px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+#login-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 20px;
+  cursor: pointer;
+}
+#login-close:hover { color: #fff; }
+
+#login-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #444;
+}
+#login-tabs .tab {
+  flex: 1;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  color: #888;
+  font-family: monospace;
+  font-size: 14px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+}
+#login-tabs .tab.active {
+  color: #4CAF50;
+  border-bottom-color: #4CAF50;
+}
+#login-tabs .tab:hover { color: #aaa; }
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+#login-form input {
+  padding: 10px 12px;
+  background: #1a1a1a;
+  border: 2px solid #444;
+  border-radius: 4px;
+  color: #fff;
+  font-family: monospace;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+#login-form input:focus { border-color: #4CAF50; }
+#login-form input::placeholder { color: #666; }
+
+.auth-error {
+  color: #ff6666;
+  font-size: 12px;
+  min-height: 16px;
+}
+.auth-btn {
+  padding: 10px;
+  background: linear-gradient(180deg, #4CAF50, #388E3C);
+  border: 2px solid #2E7D32;
+  border-radius: 4px;
+  color: #fff;
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.1s;
+}
+.auth-btn:hover { filter: brightness(1.1); }
+.auth-btn:active { transform: translateY(1px); }
+
+.oauth-section {
+  border-top: 1px solid #444;
+  padding-top: 16px;
+  text-align: center;
+}
+.oauth-label {
+  color: #888;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+.oauth-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.oauth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background: #1a1a1a;
+  color: #ccc;
+  font-family: monospace;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.oauth-btn:hover { filter: brightness(1.2); border-color: #888; }
+.oauth-btn.google:hover { border-color: #4285F4; color: #4285F4; }
+.oauth-btn.apple:hover { border-color: #fff; color: #fff; }
+.oauth-btn.microsoft:hover { border-color: #00A4EF; color: #00A4EF; }
+.oauth-btn.steam:hover { border-color: #1b2838; color: #66C0F4; }
+.oauth-icon {
+  font-size: 16px;
+  font-weight: bold;
+}
+.oauth-coming-soon {
+  color: #555;
+  font-size: 10px;
+  margin-top: 8px;
+}
+
+/* ---- Footer ---- */
+#footer {
+  position: fixed;
+  bottom: 12px;
+  text-align: center;
+  color: rgba(255,255,255,0.5);
+  font-size: 11px;
+}
+
+#footer .version {
+  font-size: 10px;
+  color: rgba(255,255,255,0.3);
+  margin-top: 2px;
+}
+
+/* ---- Loading screen ---- */
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-box {
+  text-align: center;
+}
+
+.loading-bar {
+  width: 300px;
+  height: 8px;
+  background: #333;
+  border: 2px solid #555;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0 auto 8px;
+}
+
+.loading-fill {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #81C784);
+  border-radius: 2px;
+  animation: loadAnim 2s ease-in-out infinite;
+}
+
+@keyframes loadAnim {
+  0% { width: 10%; }
+  50% { width: 80%; }
+  100% { width: 10%; }
+}
+
+.loading-text {
+  color: #aaa;
+  font-size: 14px;
+}
